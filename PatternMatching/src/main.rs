@@ -40,6 +40,11 @@ fn main() {
 
     let sum = a + b.unwrap_or(0);
     println!("{} + {} = {}", a, b.unwrap_or(0), sum);
+
+    if let Err(e) = its_useful(Coin::Penny) {
+        println!("Error: {e}");
+    }
+
 }
 
 fn route(ip: IpAddrKind) {
@@ -79,5 +84,13 @@ fn value_in_cents(coin: Coin) -> u8 {
             println!("This quarter is from {:?}", st);
             1
         },
+    }
+}
+
+fn its_useful(coin: Coin) -> Result<(), String> {
+    match coin {
+        Coin::Dime => Ok(()),
+        Coin::Quarter(s) => Ok(()),
+        _ => Err("Not useful".to_string())
     }
 }
