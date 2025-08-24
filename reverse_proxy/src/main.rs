@@ -33,7 +33,9 @@ fn proxy_foward(mut stream: TcpStream) {
         println!("[REVERSE PROXY]: Fowarded requisition!");
         let mut response_buffer = [0; 4096];
         server_stream.read(&mut response_buffer).unwrap();
-
+        println!(
+            "Response: {}", String::from_utf8_lossy(&response_buffer[..])
+        );
         stream.write(&response_buffer).unwrap();
         stream.flush().unwrap();
         
