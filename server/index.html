@@ -1,23 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Testing Server</title>
+    <title>Busca de Arquivo</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>
-        <div class="label">
-            This is a Test Server!
-        </div>
-    </h1>
-    <div>
-        <form class="Form">
-            <label for="Caminho do Arquivo">Digite o caminho do arquivo:</label>
-            <input type="text" id="filepath" name="client_file_path">
-            <button type="submit" class="botao">Search</button>
+
+    <main class="container">
+        <h1>Consultar Arquivo</h1>
+        
+        <form action="/consultar" method="GET">
+            <div class="form-group">
+                <label for="nomeArquivo">Digite o nome do arquivo</label>
+                <input 
+                    type="text" 
+                    id="nomeArquivo" 
+                    name="nome_arquivo" 
+                    placeholder="ex: relatorio_mensal.txt" 
+                    required
+                >
+            </div>
+            
+            <button type="submit">Enviar</button>
         </form>
-    </div>
+    </main>
+
 </body>
 </html>
