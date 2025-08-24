@@ -3,6 +3,7 @@ use std::net::TcpListener;
 use std::net::TcpStream;
 use std::io::prelude::*;
 use std::thread;
+use std::path::Path;
 
 
 fn handle_connection(mut stream: TcpStream) {
@@ -51,12 +52,40 @@ fn handle_connection(mut stream: TcpStream) {
     //let get = b"GET / HTTP/1.1\r\n";
     if key == "revproxy" {
         if method == "GET" {
+            let (_, req_content) = value.split_once("/").unwrap();
             //println!("[SERVER] : Recebemos uma requisição GET!");
+            let mut filepath= Path::new("404.html");
+            let mut content_type = "text/html";
+            if req_content.starts_with("?") {
+                let (var, var_value) = req_content.split_once("=").unwrap();
+                if var == "?client_file_path" {
+                    filepath = Path::new(var_value);
+                    content_type = "text/plain";
+                }
+            } else {
+                
+                filepath = Path::new(match req_content {
+                    "" => {
+                        content_type = "text/html";
+                        "index.html"
+                    },
+                    s if s.contains("css") => {
+                        content_type = "text/css";
+                        req_content
+                    }
+                    _ => {
+                        content_type = "text/plain";
+                        req_content
+                    }
+                });
+                
+            }
 
-            let contents = fs::read_to_string("index.html").unwrap();
+            let contents = fs::read_to_string(filepath).unwrap();
 
             let response = format!(
-                "HTTP/1.1 200 OK\r\nContent-Lengh: {}\r\n\r\n{}",
+                "HTTP/1.1 200 OK\r\nContent-Type: {}\r\nContent-Length: {}\r\n\r\n{}",
+                content_type,
                 contents.len(),
                 contents
             );

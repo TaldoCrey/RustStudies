@@ -1,0 +1,47 @@
+* {
+    font-family: 'Times New Roman', Times, serif;
+}
+
+body {
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    color: white;
+    text-align: center;
+    display: block;
+    padding: 25px;
+}
+
+form {
+    background-color: blanchedalmond;
+    align-items: center;
+    display: block;
+    padding: 50%;
+}
+
+.form label {
+    color: darkblue;
+    text-align: center;
+}
+
+.form input {
+    border-radius: 25px;
+    border-width: 5px;
+    background-color: gainsboro;
+    text-align: left;
+    padding: 2px;
+}
+
+.form button {
+    background-color: green;
+    border-radius: 10%;
+    color: aqua;
+}
+
+.form button:hover {
+    background-color: aquamarine;
+    color: green;
+}

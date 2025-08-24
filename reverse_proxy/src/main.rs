@@ -54,5 +54,7 @@ fn proxy_foward(mut stream: TcpStream) {
         stream.flush().unwrap();
         
 
+    } else {
+        println!("[REVERSE PROXY]: Recebemos uma nova requisição => \n{}", request_string);
     }
 }
